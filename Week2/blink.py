@@ -1,1 +1,0 @@
-# Arnie's Blink File!
