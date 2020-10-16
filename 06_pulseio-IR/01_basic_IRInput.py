@@ -7,7 +7,7 @@ import pulseio
 import adafruit_irremote
 
 # declare objects and variables
-irIn = pulseio.PulseIn(board.IR_RX, maxlen=120, idle_state=True)
+irIn = pulseio.PulseIn(board.A1, maxlen=120, idle_state=True)
 
 decoder = adafruit_irremote.GenericDecode()
 
@@ -15,6 +15,11 @@ decoder = adafruit_irremote.GenericDecode()
 while True:
     # gather input
     pulses = decoder.read_pulses(irIn)
+    """
+    note:
+    decoder.read_pulses(pin) will block further code execution by default
+    add ,blocking=False) to prevent this behavior.
+    """
     # print the raw pulses for educational value
     print(pulses)
     # then try to use the adafruit_irremote library to decode the pulses!
@@ -30,5 +35,10 @@ while True:
         print("Failed to decode: ", e.args)
         continue
 
-    print("NEC Infrared code received: ", incomingCode)
+        """
+        note:
+        Continue will stop code BELOW the continue statement from executing.
+        To change this behavior alter it to: pass to allow code below to execute\.
+        """
 
+    print("NEC Infrared code received: ", incomingCode)
