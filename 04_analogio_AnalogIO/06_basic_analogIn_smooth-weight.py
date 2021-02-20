@@ -1,16 +1,9 @@
 # read an analog input and smooth the value with a weight
-# use simpleio map_range function to map the 16bit value to 8bit range
-# set neopixels color with the 8bit value
 
 # import modules and libraries
 import board
-import neopixel
 import analogio
 import time
-from simpleio import map_range
-
-# declare neopixel object with onboard neopixel pin
-pixels = neopixel.NeoPixel(board.NEOPIXEL, 10)
 
 # declare analog input object on pin A1
 analog_in = analogio.AnalogIn(board.A1)
@@ -27,9 +20,6 @@ def weightedSmooth(in_val, weight):
     # return the new average
     return smooth_val
 
-# create a color variable and fill the pixels with the color
-color = (0, 0, 0)
-pixels.fill(color)
 
 # repeat this code forever
 while True:
@@ -37,20 +27,12 @@ while True:
     reading = analog_in.value
 
     # do calculation: weightedSmooth() with the reading and a weight
-    smooth_val = weightedSmooth(reading, 0.1)
+    smooth_val = weightedSmooth(reading, 0.25)
+    # raise and lower the weight and see the effect in the serial monitor!
+    # the weight must fall between 0.0 and 1.0
 
-    # do calculation: scale 16-bit reading to 8-bit value
-    scaled_val = map_range(smooth_val, 0, 65535, 0, 255)
-    # cast float scaled_val to int()
-    scaled_val = int(scaled_val)
-
-    print((reading, smooth_val, scaled_val))
-
-    # set new color value
-    color = (0, scaled_val, scaled_val)
-
-    # do output
-    pixels.fill(color)
+    # print both values to the serial monitor in a touple for PLOTTER
+    print((reading, smooth_val))
 
     # sleep to prevent buffer overrun
-    time.sleep(0.05)
+    time.sleep(0.1)

@@ -44,7 +44,6 @@ while True:
             led.value = not led.value
             # increment the time by blinkDelay
             blinkTime += blinkInterval
-
     else:
         # turn led off
         led.value = False

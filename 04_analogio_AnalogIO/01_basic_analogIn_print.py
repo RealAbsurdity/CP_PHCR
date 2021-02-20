@@ -5,14 +5,13 @@ import board
 import time
 import analogio
 
-# declare variables and objects
-
-analogIn = analogio.AnalogIn(board.A1)
-analogOut = analogio.AnalogOut(board.A0)
+# declare analog input object on pin A1
+analog_in = analogio.AnalogIn(board.A1)
 
 # repeat this code forever
 while True:
     # gather and print input
-    print(analogIn.value)
+    print(analog_in.value)
 
+    # sleep to prevent buffer overrun
     time.sleep(0.1)

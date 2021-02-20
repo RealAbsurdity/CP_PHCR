@@ -6,8 +6,8 @@ import time
 import digitalio
 import analogio
 
-# declare variables and objects
-analogIn = analogio.AnalogIn(board.A1)
+# declare analog input object on pin A1
+analog_in = analogio.AnalogIn(board.A1)
 
 # declare led1 - led5
 led1 = digitalio.DigitalInOut(board.A2)
@@ -31,7 +31,7 @@ TH5 = 53000
 # repeat this code forever
 while True:
     # gather input
-    reading = analogIn.value
+    reading = analog_in.value
 
     # do output
     # print the threshold and reading for PLOTTER
@@ -76,4 +76,4 @@ while True:
         led5.value = False
 
     # sleep to prevent serial buffer overflow
-    time.sleep(0.05)
+    time.sleep(0.1)
